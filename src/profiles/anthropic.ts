@@ -3,9 +3,10 @@
 // proxy synthesizes once every model in a tier's chain is rate-limited.
 // (Ports claude-code-loader/src/proxy.ts:114-142 `rateLimitFinal`'s body/header
 // construction into `nativeRateLimit` — the reset-reconciliation-with-upstream and
-// message/retry-after math is unchanged; only the anthropic-ratelimit-* re-apply
-// from a raw upstream 429 is now ALSO done by the shared rate-limit.ts `rateLimitFinal`
-// after this returns, so doing it here too is redundant but harmless.)
+// message/retry-after math is unchanged. The generic engine's shared rate-limit.ts
+// `rateLimitFinal` no longer touches any headers itself — this profile is now the
+// SOLE source of the synthesized 429, including the anthropic-ratelimit-* headers
+// copied from a raw upstream 429.)
 
 import type { RateLimitInfo, RoutingProfile } from "../../core-proxy/dist/index.js";
 
@@ -54,6 +55,7 @@ const ANTHROPIC_PROFILE: RoutingProfile = {
   tierOrder: ["opus", "sonnet", "haiku", "fable"],
   tierFallback: ["opus", "sonnet", "haiku"],
   tierRegex: /^claude-([a-z]+)-\d/,
+  nativeModelPattern: /^claude-/,
   envPrefix: "ANTHROPIC",
   defaultContext: 200000,
   defaultOutput: 64000,
