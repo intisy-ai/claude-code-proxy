@@ -1,0 +1,3 @@
+[submodule "core-proxy"]
+	path = core-proxy
+	url = https://github.com/intisy-ai/core-proxy.git

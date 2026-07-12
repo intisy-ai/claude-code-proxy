@@ -1,0 +1,19 @@
+{
+  "name": "claude-code-proxy",
+  "version": "0.1.0",
+  "description": "The Claude/Anthropic proxy layer (anthropicProfile) on top of the generic core-proxy engine",
+  "type": "module",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "author": "intisy",
+  "repository": { "type": "git", "url": "git+https://github.com/intisy-ai/claude-code-proxy.git" },
+  "keywords": ["proxy", "routing", "anthropic", "claude", "intisy", "claude-code-proxy"],
+  "files": ["dist/", "README.md", "LICENSE"],
+  "engines": { "node": ">=20.0.0" },
+  "scripts": {
+    "build": "npx tsc --project core-proxy/tsconfig.json --types node && npx tsc",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": { "typescript": "^5.6.0", "vitest": "^2.1.0", "@types/node": "^22.0.0", "esbuild": "^0.21.5" }
+}
