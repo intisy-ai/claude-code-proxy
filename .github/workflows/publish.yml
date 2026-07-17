@@ -31,7 +31,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '22'
 
       # `npm run build` runs the TeaVM step (java → src/generated/*.teavm.js), which needs a JDK + gradle.
       - uses: actions/setup-java@v4
@@ -43,10 +43,14 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npx vitest run
+      - run: chmod +x java/gradlew
+      # JVM parity gate: the Java synthCore unit test (defense-in-depth alongside the transpiled vitest case).
+      - name: Run JVM parity test
+        working-directory: java
+        run: ./gradlew :claude-code-proxy-plugin:test
 
       # Publish the ProxyPlugin jar onto the v-release. github.token (contents:write) suffices to create
       # the release; the module needs no published dependency (compileOnly :routing from the submodule).
-      - run: chmod +x java/gradlew
       - name: Publish proxy jar
         working-directory: java
         run: ./gradlew :claude-code-proxy-plugin:jar :claude-code-proxy-plugin:publishGithub -Partifact_version=${{ github.ref_name }} -x test -x compileTestJava
