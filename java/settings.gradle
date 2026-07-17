@@ -1,0 +1,13 @@
+rootProject.name = "claude-code-proxy-java"
+
+// Alias :routing (SPIs incl. ProxyPlugin, RoutingProfile, RateLimitInfo) and :teavm (SimpleJsonCodec
+// js-base) from the nested core-proxy submodule, exactly as every provider's java/settings.gradle does.
+include ":routing"
+project(":routing").projectDir = file("../core-proxy/java/routing")
+include ":teavm"
+project(":teavm").projectDir = file("../core-proxy/java/teavm")
+
+// :claude-code-proxy-plugin — the publishable *-proxy*.jar (ClaudeCodeProxyPlugin + AnthropicRateLimit).
+include ":claude-code-proxy-plugin"
+// :claude-code-proxy-teavm — TeaVM JS export of AnthropicRateLimit.synthCore (Task 3).
+include ":claude-code-proxy-teavm"

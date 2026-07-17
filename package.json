@@ -11,9 +11,9 @@
   "files": ["dist/", "README.md", "LICENSE"],
   "engines": { "node": ">=20.0.0" },
   "scripts": {
-    "build": "npx tsc --project core-proxy/tsconfig.json --types node && npx tsc",
+    "build": "node core-proxy/teavm-build.mjs --java-dir java --module :claude-code-proxy-teavm --out src/generated/anthropic-rate-limit.teavm.js && npx tsc --project core-proxy/tsconfig.json --types node && npx tsc && node build.mjs",
     "test": "vitest run",
     "prepublishOnly": "npm run build"
   },
-  "devDependencies": { "typescript": "^5.6.0", "vitest": "^2.1.0", "@types/node": "^22.0.0", "esbuild": "^0.21.5" }
+  "devDependencies": { "typescript": "^5.6.0", "vitest": "^2.1.0", "@types/node": "^22.0.0" }
 }
