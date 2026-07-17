@@ -1,2 +1,6 @@
 node_modules/
 dist/
+src/generated/*.js
+src/generated/*.js.map
+java/**/build/
+java/.gradle/
