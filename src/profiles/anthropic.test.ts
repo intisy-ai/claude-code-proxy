@@ -29,3 +29,34 @@ it("anthropicProfile: overrides are spread on top of the defaults", () => {
   expect(profile.configFile).toBe("custom.json");
   expect(profile.envPrefix).toBe("ANTHROPIC");
 });
+
+// Parity gate: proves the TeaVM-transpiled Java (AnthropicRateLimit.synthJson) reproduces
+// header-stripping + 5h-reset reconciliation + retry-after math for a raw upstream 429.
+it("anthropicProfile: nativeRateLimit reconciles an upstream 429 (5h-reset wins, headers stripped)", async () => {
+  const profile = anthropicProfile();
+  const now = Date.now();
+  const fiveHourResetSec = Math.floor((now + 300_000) / 1000); // ~300s out — should win over resetMs
+  const upstream = new Response(null, {
+    status: 429,
+    headers: {
+      "anthropic-ratelimit-unified-5h-reset": String(fiveHourResetSec),
+      "content-encoding": "gzip",
+      "content-length": "123",
+    },
+  });
+
+  const built = await profile.nativeRateLimit({ resetMs: now + 120_000, upstream });
+
+  expect(built.status).toBe(429);
+  expect(built.headers["content-type"]).toBe("application/json");
+  expect(built.headers["content-encoding"]).toBeUndefined();
+  expect(built.headers["content-length"]).toBeUndefined();
+  expect(built.headers["anthropic-ratelimit-unified-status"]).toBe("rejected");
+
+  const retryAfter = parseInt(built.headers["retry-after"], 10);
+  expect(retryAfter).toBeGreaterThanOrEqual(290);
+  expect(retryAfter).toBeLessThanOrEqual(300);
+
+  const parsed = JSON.parse(built.body);
+  expect(parsed.error.type).toBe("rate_limit_error");
+});
