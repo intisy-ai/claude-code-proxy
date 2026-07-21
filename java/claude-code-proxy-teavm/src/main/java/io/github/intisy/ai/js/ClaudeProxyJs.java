@@ -11,8 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * TeaVM JS export of the Anthropic 429 synth — the single-source logic in AnthropicRateLimit,
- * exposed so anthropic.ts consumes the transpiled copy instead of a hand-written duplicate.
+ * TeaVM JS export of the Anthropic 429 synth: the single-source logic in AnthropicRateLimit,
+ * exposed so anthropic.ts consumes the transpiled copy rather than reimplementing it in TypeScript.
  * JSON-in/JSON-out (same convention as CoreProxyJs), using the shared SimpleJsonCodec (TeaVM-safe).
  */
 public final class ClaudeProxyJs {

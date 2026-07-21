@@ -1,10 +1,9 @@
 // The Claude/Anthropic RoutingProfile: config file, tier detection, and env-var
 // naming for the claude-code tier source, plus the native Anthropic-shaped 429 the
 // proxy synthesizes once every model in a tier's chain is rate-limited.
-// (`nativeRateLimit` is a thin marshalling adapter over the TeaVM-transpiled
-// `AnthropicRateLimit.synthJson` — the reset-reconciliation-with-upstream, header
-// stripping, and message/retry-after math all live in Java now (single-sourced
-// with the JVM jar). This profile no longer re-implements any of that logic.)
+// nativeRateLimit is a thin marshalling adapter over the TeaVM-transpiled
+// AnthropicRateLimit.synthJson, which owns the reset-reconciliation-with-upstream,
+// header stripping, and message/retry-after math (single-sourced with the JVM jar).
 
 import type { RateLimitInfo, RoutingProfile } from "../../core-proxy/dist/index.js";
 import { synthJson } from "../generated/anthropic-rate-limit.teavm.js";
@@ -43,7 +42,7 @@ const ANTHROPIC_PROFILE: RoutingProfile = {
   defaultContext: 200000,
   defaultOutput: 64000,
   nativeRateLimit,
-  // SP-3 T3a: Claude Code speaks Anthropic wire, so the IR front-door uses core-ir's real
+  // Claude Code speaks Anthropic wire, so the IR front-door uses core-ir's real
   // AnthropicTranslator for this profile (server.ts's route() decodes/encodes through it).
   translator: translators.anthropic,
 };

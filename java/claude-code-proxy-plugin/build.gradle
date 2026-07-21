@@ -1,6 +1,6 @@
 dependencies {
     // ProxyPlugin/RoutingProfile/RateLimitInfo come from the host's classpath at runtime (the
-    // example-server's ProxyRegistry classloader already has :routing) — compileOnly keeps this jar thin.
+    // example-server's ProxyRegistry classloader already has :routing); compileOnly keeps this jar thin.
     compileOnly project(":routing")
     testImplementation project(":routing")
 }

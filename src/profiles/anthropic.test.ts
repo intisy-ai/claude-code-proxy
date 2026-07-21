@@ -35,7 +35,7 @@ it("anthropicProfile: overrides are spread on top of the defaults", () => {
 it("anthropicProfile: nativeRateLimit reconciles an upstream 429 (5h-reset wins, headers stripped)", async () => {
   const profile = anthropicProfile();
   const now = Date.now();
-  const fiveHourResetSec = Math.floor((now + 300_000) / 1000); // ~300s out — should win over resetMs
+  const fiveHourResetSec = Math.floor((now + 300_000) / 1000); // ~300s out, should win over resetMs
   const upstream = new Response(null, {
     status: 429,
     headers: {

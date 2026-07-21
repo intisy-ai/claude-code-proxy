@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 /**
  * The claude-code (Anthropic) {@link ProxyPlugin}, discovered via {@code ServiceLoader} from this
  * jar's {@code META-INF/services} entry. Java port of the TS {@code anthropicProfile()} (see
- * {@code libs/claude-code-proxy/src/profiles/anthropic.ts}) — same tier detection, env naming,
- * defaults, and Anthropic-shaped synthesized 429 (now single-sourced in {@link AnthropicRateLimit}).
+ * {@code libs/claude-code-proxy/src/profiles/anthropic.ts}): same tier detection, env naming,
+ * defaults, and Anthropic-shaped synthesized 429, single-sourced in {@link AnthropicRateLimit}.
  */
 public final class ClaudeCodeProxyPlugin implements ProxyPlugin {
     private static final Pattern TIER_REGEX = Pattern.compile("^claude-([a-z]+)-\\d");
