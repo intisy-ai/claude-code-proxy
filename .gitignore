@@ -4,3 +4,6 @@ src/generated/*.js
 src/generated/*.js.map
 java/**/build/
 java/.gradle/
+docs/
+.superpowers/
+graphify-out/
