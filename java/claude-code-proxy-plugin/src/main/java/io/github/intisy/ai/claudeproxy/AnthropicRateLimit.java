@@ -10,11 +10,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Single source of the Anthropic-shaped synthesized 429: copy an upstream 429's headers, reconcile
- * the reset from anthropic-ratelimit-* headers, recompute retry-after from wall-clock, and emit a
- * rate_limit_error body. Ported verbatim from ai-java's {@code AppProfiles.synthesize429}, with
- * {@code now} injected as a parameter (a real seam, not {@code System.currentTimeMillis()}) so this
- * is deterministically testable and TeaVM-transpilable (no java.net/java.nio).
+ * Single source of the Anthropic-shaped synthesized 429: copies an upstream 429's headers,
+ * reconciles the reset from anthropic-ratelimit-* headers, recomputes retry-after from wall-clock,
+ * and emits a rate_limit_error body. Takes {@code now} as a parameter (a real seam, not
+ * {@code System.currentTimeMillis()}) so this is deterministically testable and TeaVM-transpilable
+ * (no java.net/java.nio).
  */
 public final class AnthropicRateLimit {
     private AnthropicRateLimit() {
@@ -31,8 +31,7 @@ public final class AnthropicRateLimit {
 
     /**
      * Pure logic: a non-429 upstream status or an empty/null header map is treated as "no
-     * upstream" (matches the original {@code upstream.status == 429 && upstream.headers != null}
-     * guard).
+     * upstream" ({@code upstream.status == 429 && upstream.headers != null} must both hold).
      */
     public static RoutingProfile.Synth synthCore(int upstreamStatus, Map<String, String> upstreamHeaders,
                                                   long resetMs, long now) {

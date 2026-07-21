@@ -8,14 +8,14 @@ include ":teavm"
 project(":teavm").projectDir = file("../core-proxy/java/teavm")
 
 // :ir - core-ir's canonical IR types + vendor translators (AnthropicTranslator etc.), aliased in
-// exactly like :routing/:teavm above (SP-3 T3a). core-ir is a DIRECT submodule of
-// claude-code-proxy (../core-ir from here, i.e. claude-code-proxy/core-ir), not nested inside
-// core-proxy. :routing's build.gradle references project(":ir") so this alias must resolve
-// wherever :routing is included, exactly as claude-code-auth's java/settings.gradle does.
+// exactly like :routing/:teavm above. core-ir is a DIRECT submodule of claude-code-proxy
+// (../core-ir from here, i.e. claude-code-proxy/core-ir), not nested inside core-proxy.
+// :routing's build.gradle references project(":ir") so this alias must resolve wherever
+// :routing is included, exactly as claude-code-auth's java/settings.gradle does.
 include ":ir"
 project(":ir").projectDir = file("../core-ir/java/ir")
 
-// :claude-code-proxy-plugin — the publishable *-proxy*.jar (ClaudeCodeProxyPlugin + AnthropicRateLimit).
+// :claude-code-proxy-plugin, the publishable *-proxy*.jar (ClaudeCodeProxyPlugin + AnthropicRateLimit).
 include ":claude-code-proxy-plugin"
-// :claude-code-proxy-teavm — TeaVM JS export of AnthropicRateLimit.synthCore (Task 3).
+// :claude-code-proxy-teavm, TeaVM JS export of AnthropicRateLimit.synthCore.
 include ":claude-code-proxy-teavm"

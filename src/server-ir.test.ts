@@ -1,5 +1,5 @@
-// SP-3 T3a: proves the IR front-door is ACTIVE on the real anthropicProfile (not a hand-rolled
-// stand-in) -- anthropicProfile() now carries core-ir's real AnthropicTranslator, so an inbound
+// Proves the IR front-door is ACTIVE on the real anthropicProfile (not a hand-rolled
+// stand-in): anthropicProfile() carries core-ir's real AnthropicTranslator, so an inbound
 // Anthropic-wire request decodes to IR, routes on IrRequest.model, reaches a handleIr-capable
 // handler, and the IrResponse is encoded back to Anthropic wire by createProxyServer (core-proxy).
 import { afterEach, beforeEach, expect, it } from "vitest";
