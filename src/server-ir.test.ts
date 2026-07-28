@@ -1,14 +1,15 @@
 // Proves the IR front-door is ACTIVE on the real anthropicProfile (not a hand-rolled
-// stand-in): anthropicProfile() carries core-ir's real AnthropicTranslator, so an inbound
-// Anthropic-wire request decodes to IR, routes on IrRequest.model, reaches a handleIr-capable
-// handler, and the IrResponse is encoded back to Anthropic wire by createProxyServer (core-proxy).
+// stand-in): anthropicProfile() carries anthropic-translator's real AnthropicTranslator, so an
+// inbound Anthropic-wire request decodes to IR, routes on IrRequest.model, reaches a
+// handleIr-capable handler, and the IrResponse is encoded back to Anthropic wire by
+// createProxyServer (core-proxy).
 import { afterEach, beforeEach, expect, it } from "vitest";
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { createProxyServer } from "../core-proxy/dist/index.js";
 import { anthropicProfile } from "./profiles/anthropic.js";
-import { translators } from "../core-ir/dist/index.js";
+import { anthropicTranslator } from "../anthropic-translator/dist/index.js";
 import type { IrRequest, IrResponse } from "../core-ir/dist/index.js";
 
 let dir: string, srv: any;
@@ -19,7 +20,7 @@ beforeEach(() => {
 afterEach(async () => { if (srv) await srv.close(); rmSync(dir, { recursive: true, force: true }); });
 
 it("anthropicProfile() has a translator wired, activating the IR front-door", () => {
-  expect(anthropicProfile().translator).toBe(translators.anthropic);
+  expect(anthropicProfile().translator).toBe(anthropicTranslator);
 });
 
 it("decodes inbound Anthropic wire -> IR -> handleIr -> encodes IR back to Anthropic wire", async () => {
@@ -48,7 +49,7 @@ it("decodes inbound Anthropic wire -> IR -> handleIr -> encodes IR back to Anthr
     body: JSON.stringify({ model: "claude-opus-4-1", max_tokens: 100, messages: [{ role: "user", content: "hello" }], stream: false }),
   });
   expect(r.status).toBe(200);
-  const decoded = await translators.anthropic.decodeResponse(await r.text());
+  const decoded = await anthropicTranslator.decodeResponse(await r.text());
   expect(decoded.stopReason).toBe("end_turn");
   expect(decoded.content[0]).toMatchObject({ kind: "text", text: "ir front-door: hello" });
 });

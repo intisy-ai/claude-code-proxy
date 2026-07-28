@@ -7,7 +7,7 @@
 
 import type { RateLimitInfo, RoutingProfile } from "../../core-proxy/dist/index.js";
 import { synthJson } from "../generated/anthropic-rate-limit.teavm.js";
-import { translators } from "../../core-ir/dist/index.js";
+import { anthropicTranslator } from "../../anthropic-translator/dist/index.js";
 
 async function nativeRateLimit(info: RateLimitInfo): Promise<{ status: number; headers: Record<string, string>; body: string }> {
   const upstream = info.upstream;
@@ -42,9 +42,9 @@ const ANTHROPIC_PROFILE: RoutingProfile = {
   defaultContext: 200000,
   defaultOutput: 64000,
   nativeRateLimit,
-  // Claude Code speaks Anthropic wire, so the IR front-door uses core-ir's real
+  // Claude Code speaks Anthropic wire, so the IR front-door uses anthropic-translator's
   // AnthropicTranslator for this profile (server.ts's route() decodes/encodes through it).
-  translator: translators.anthropic,
+  translator: anthropicTranslator,
 };
 
 export function anthropicProfile(overrides?: Partial<RoutingProfile>): RoutingProfile {
