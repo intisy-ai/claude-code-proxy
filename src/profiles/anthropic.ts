@@ -4,10 +4,30 @@
 // nativeRateLimit is a thin marshalling adapter over the TeaVM-transpiled
 // AnthropicRateLimit.synthJson, which owns the reset-reconciliation-with-upstream,
 // header stripping, and message/retry-after math (single-sourced with the JVM jar).
+// The profile's DATA fields (tiers, regex, env prefix, config file, defaults) are likewise
+// single-sourced: ClaudeCodeProxyPlugin.java is the one place they are written down (it is also
+// the ServiceLoader-discovered ProxyPlugin ai-java's example-server loads standalone, with no TS
+// process involved), and profileJson exports that same data here via the TeaVM bridge instead of
+// this file hand-copying a second literal.
 
 import type { RateLimitInfo, RoutingProfile } from "../../core-proxy/dist/index.js";
-import { synthJson } from "../generated/anthropic-rate-limit.teavm.js";
+import { synthJson, profileJson } from "../generated/anthropic-rate-limit.teavm.js";
 import { anthropicTranslator } from "../../anthropic-translator/dist/index.js";
+
+type AnthropicProfileData = {
+  configFile: string;
+  routingKey: string;
+  tierSourceProvider: string;
+  tierOrder: string[];
+  tierFallback: string[];
+  tierRegex: string;
+  nativeModelPattern: string | null;
+  envPrefix: string;
+  defaultContext: number;
+  defaultOutput: number;
+};
+
+const PROFILE_DATA: AnthropicProfileData = JSON.parse(profileJson());
 
 async function nativeRateLimit(info: RateLimitInfo): Promise<{ status: number; headers: Record<string, string>; body: string }> {
   const upstream = info.upstream;
@@ -31,16 +51,16 @@ async function nativeRateLimit(info: RateLimitInfo): Promise<{ status: number; h
 }
 
 const ANTHROPIC_PROFILE: RoutingProfile = {
-  configFile: "claude-code-loader.json",
-  routingKey: "providerRouting",
-  tierSourceProvider: "claude-code",
-  tierOrder: ["opus", "sonnet", "haiku", "fable"],
-  tierFallback: ["opus", "sonnet", "haiku"],
-  tierRegex: /^claude-([a-z]+)-\d/,
-  nativeModelPattern: /^claude-/,
-  envPrefix: "ANTHROPIC",
-  defaultContext: 200000,
-  defaultOutput: 64000,
+  configFile: PROFILE_DATA.configFile,
+  routingKey: PROFILE_DATA.routingKey,
+  tierSourceProvider: PROFILE_DATA.tierSourceProvider,
+  tierOrder: PROFILE_DATA.tierOrder,
+  tierFallback: PROFILE_DATA.tierFallback,
+  tierRegex: new RegExp(PROFILE_DATA.tierRegex),
+  nativeModelPattern: PROFILE_DATA.nativeModelPattern ? new RegExp(PROFILE_DATA.nativeModelPattern) : undefined,
+  envPrefix: PROFILE_DATA.envPrefix,
+  defaultContext: PROFILE_DATA.defaultContext,
+  defaultOutput: PROFILE_DATA.defaultOutput,
   nativeRateLimit,
   // Claude Code speaks Anthropic wire, so the IR front-door uses anthropic-translator's
   // AnthropicTranslator for this profile (server.ts's route() decodes/encodes through it).
