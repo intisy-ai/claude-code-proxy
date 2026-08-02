@@ -1,5 +1,6 @@
 export * from "../core-proxy/dist/index.js";
 export { anthropicProfile } from "./profiles/anthropic.js";
+export { serveDirect } from "./serve-direct.js";
 
 import { anthropicProfile } from "./profiles/anthropic.js";
 import type { RoutingProfile } from "../core-proxy/dist/index.js";
