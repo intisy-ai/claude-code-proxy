@@ -7,9 +7,11 @@ Anthropic-shaped 429 response that the engine needs) to route requests for
 Claude Code. It is consumed by `claude-code-loader` as a git submodule and
 installed/run by the dashboard sidecar.
 
-This is a **library repo consumed as a git submodule and bundled from
+This is a **library repo consumed as a git submodule and compiled from
 source** (the same treatment as `core` / `core-auth` / `core-loader` /
-`core-proxy`), it is not published to npm.
+`core-proxy`). A first version exists on npm as `@intisy-ai/claude-code-proxy`,
+but this repo's release workflow ships only the JVM ProxyPlugin jar, so that
+package is not yet part of the release path.
 
 This project carries **no generic engine code**; the routing engine
 (`:34567` daemon, tier→provider chains, rate-limit fallback, model rewrite,
