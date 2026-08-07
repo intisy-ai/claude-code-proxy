@@ -1,19 +1,39 @@
 {
   "name": "claude-code-proxy",
-  "version": "0.1.0",
+  "version": "0.4.1",
   "description": "The Claude/Anthropic proxy layer (anthropicProfile) on top of the generic core-proxy engine",
   "type": "module",
   "main": "dist/index.js",
   "license": "MIT",
   "author": "intisy",
-  "repository": { "type": "git", "url": "git+https://github.com/intisy-ai/claude-code-proxy.git" },
-  "keywords": ["proxy", "routing", "anthropic", "claude", "intisy", "claude-code-proxy"],
-  "files": ["dist/", "README.md", "LICENSE"],
-  "engines": { "node": ">=20.0.0" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intisy-ai/claude-code-proxy.git"
+  },
+  "keywords": [
+    "proxy",
+    "routing",
+    "anthropic",
+    "claude",
+    "intisy",
+    "claude-code-proxy"
+  ],
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "build": "npm --prefix core-proxy/core-ir install && npm --prefix core-proxy/core-ir run build && npm --prefix core-ir install && npm --prefix core-ir run build && npm --prefix anthropic-translator install && npm --prefix anthropic-translator run build && node core-proxy/teavm-build.mjs --java-dir core-proxy/java --module :teavm --out core-proxy/src/generated/core-proxy.teavm.js && node core-proxy/teavm-build.mjs --java-dir java --module :claude-code-proxy-teavm --out src/generated/anthropic-rate-limit.teavm.js && npx tsc --project core-proxy/tsconfig.json --types node && node core-proxy/copy-generated.mjs --root core-proxy && npx tsc && node build.mjs",
     "test": "vitest run",
     "prepublishOnly": "npm run build"
   },
-  "devDependencies": { "typescript": "^5.6.0", "vitest": "^2.1.0", "@types/node": "^22.0.0" }
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "@types/node": "^22.0.0"
+  }
 }
