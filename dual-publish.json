@@ -1,4 +1,5 @@
 {
   "scopedOnly": true,
-  "jarPublish": "      - run: chmod +x java/gradlew\n      # JVM parity gate: the Java unit test, alongside the transpiled vitest case.\n      - name: Run JVM parity test\n        working-directory: java\n        run: ./gradlew :claude-code-proxy-plugin:test\n\n      # The ProxyPlugin jar rides the same v-release. github.token (contents: write) is enough to\n      # create it; the module needs no published dependency (compileOnly :routing from the submodule).\n      - name: Publish proxy jar\n        working-directory: java\n        run: ./gradlew :claude-code-proxy-plugin:jar :claude-code-proxy-plugin:publishGithub -Partifact_version=${{ github.ref_name }} -x test -x compileTestJava\n        env:\n          GITHUB_TOKEN: ${{ github.token }}\n          GH_TOKEN: ${{ github.token }}"
+  "jarModule": "claude-code-proxy-plugin",
+  "jarPretest": true
 }
