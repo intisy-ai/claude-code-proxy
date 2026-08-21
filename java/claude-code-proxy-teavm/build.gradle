@@ -12,10 +12,10 @@ dependencies {
     // again below for the SPI types (RoutingProfile.Synth) ClaudeProxyJs references directly.
     implementation project(":claude-code-proxy-plugin")
     implementation project(":routing")
-    // core-proxy's own :teavm js-base (SimpleJsonCodec) -- reused rather than duplicated;
-    // ClaudeProxyJs lives in the SAME package (io.github.intisy.ai.js) so it can reference
-    // SimpleJsonCodec unqualified, exactly like CoreProxyJs/ClaudeProviderJs do.
-    implementation project(":teavm")
+    // :js-base's TeaVM service implementations (SimpleJsonCodec), reused rather than duplicated;
+    // ClaudeProxyJs lives in the SAME package (io.github.intisy.ai.js) so it references them
+    // unqualified, exactly like CoreProxyJs and every provider's own export surface do.
+    implementation project(":js-base")
     teavm teavm.libs.jsoApis
 }
 
