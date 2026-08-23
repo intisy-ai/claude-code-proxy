@@ -2,8 +2,9 @@ node_modules/
 dist/
 src/generated/*.js
 src/generated/*.js.map
-java/**/build/
-java/.gradle/
+build/
+*/build/
+.gradle/
 docs/
 .superpowers/
 graphify-out/

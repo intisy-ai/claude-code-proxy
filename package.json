@@ -28,7 +28,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "build": "npm --prefix core-proxy/core-ir install && npm --prefix core-proxy/core-ir run build && npm --prefix core-ir install && npm --prefix core-ir run build && npm --prefix anthropic-translator install && npm --prefix anthropic-translator run build && node core-proxy/teavm-build.mjs --java-dir core-proxy/java --module :teavm --out core-proxy/src/generated/core-proxy.teavm.js && node core-proxy/teavm-build.mjs --java-dir java --module :claude-code-proxy-teavm --out src/generated/anthropic-rate-limit.teavm.js && npx tsc --project core-proxy/tsconfig.json --types node && node core-proxy/copy-generated.mjs --root core-proxy && npx tsc && node build.mjs",
+    "build": "npm --prefix core-proxy/core-ir install && npm --prefix core-proxy/core-ir run build && npm --prefix core-ir install && npm --prefix core-ir run build && npm --prefix anthropic-translator install && npm --prefix anthropic-translator run build && node core-proxy/teavm-build.mjs --java-dir core-proxy --module :teavm --out core-proxy/src/generated/core-proxy.teavm.js && node core-proxy/teavm-build.mjs --java-dir . --module :claude-code-proxy-teavm --out src/generated/anthropic-rate-limit.teavm.js && npx tsc --project core-proxy/tsconfig.json --types node && node core-proxy/copy-generated.mjs --root core-proxy && npx tsc && node build.mjs",
     "test": "vitest run",
     "prepublishOnly": "npm run build"
   },

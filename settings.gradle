@@ -1,0 +1,41 @@
+plugins {
+    id "org.gradle.toolchains.foojay-resolver-convention" version "0.8.0"
+}
+
+rootProject.name = "claude-code-proxy-java"
+
+// The routing engine and its TeaVM js export, from this repo's nested core-proxy submodule. Every
+// alias reaching api or core-ir goes through core-proxy's OWN clones so this build carries exactly
+// one :ir and one api: two projectDirs claiming the same project path is a Gradle collision.
+include ":routing"
+project(":routing").projectDir = file("core-proxy/routing")
+
+include ":teavm"
+project(":teavm").projectDir = file("core-proxy/teavm")
+
+// :proxy-contracts - the routing vocabulary this plugin implements, and the front-door key
+// core-proxy mints. Apart from :routing so a plugin implementing it does not link the engine.
+include ":proxy-contracts"
+project(":proxy-contracts").projectDir = file("core-proxy/proxy-contracts")
+
+// :ir - core-ir's canonical IR types and the IrHandler seam the engine routes over.
+include ":ir"
+project(":ir").projectDir = file("core-proxy/core-ir/ir")
+
+// :annotations, :processor, :contract, :seam and :js-base come from api: :ir exports api's seam
+// types in HandlerCtx's public fields, so every module here must resolve api at one coordinate.
+include ":annotations"
+project(":annotations").projectDir = file("core-proxy/core-ir/api/annotations")
+include ":processor"
+project(":processor").projectDir = file("core-proxy/core-ir/api/processor")
+include ":contract"
+project(":contract").projectDir = file("core-proxy/core-ir/api/contract")
+include ":seam"
+project(":seam").projectDir = file("core-proxy/core-ir/api/seam")
+include ":js-base"
+project(":js-base").projectDir = file("core-proxy/core-ir/api/js-base")
+
+// :claude-code-proxy-plugin, the publishable *-proxy*.jar (ClaudeCodeProxyPlugin + AnthropicRateLimit).
+include ":claude-code-proxy-plugin"
+// :claude-code-proxy-teavm, TeaVM JS export of AnthropicRateLimit.synthCore.
+include ":claude-code-proxy-teavm"

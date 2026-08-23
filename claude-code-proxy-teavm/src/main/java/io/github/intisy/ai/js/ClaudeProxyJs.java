@@ -1,9 +1,10 @@
 package io.github.intisy.ai.js;
 
+import io.github.intisy.ai.seam.SimpleJsonCodec;
 import io.github.intisy.ai.claudeproxy.AnthropicRateLimit;
 import io.github.intisy.ai.claudeproxy.ClaudeCodeProxyPlugin;
 import io.github.intisy.ai.shared.routing.RoutingProfile;
-import io.github.intisy.ai.shared.spi.JsonCodec;
+import io.github.intisy.ai.api.seam.JsonCodec;
 
 import org.teavm.jso.JSExport;
 
