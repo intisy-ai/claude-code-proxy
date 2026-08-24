@@ -3,7 +3,7 @@
 // provider module: :claude-code-proxy-plugin depends on :routing ONLY (no ai-java jvm backend, no
 // core-auth, no composite includeBuild) -- it only builds a RoutingProfile + implements ProxyPlugin.
 plugins {
-    id "io.github.intisy.github-gradle" version "1.8.2.1" apply false
+    id "io.github.intisy.github-gradle" version "1.10.3" apply false
 }
 
 subprojects {
