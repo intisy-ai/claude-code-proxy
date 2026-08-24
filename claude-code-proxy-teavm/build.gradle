@@ -11,11 +11,13 @@ dependencies {
     // (keeping its shipped jar thin) -- that does NOT propagate to us, so :routing is declared
     // again below for the SPI types (RoutingProfile.Synth) ClaudeProxyJs references directly.
     implementation project(":claude-code-proxy-plugin")
-    implementation project(":routing")
-    // core-proxy's own :teavm js-base (SimpleJsonCodec) -- reused rather than duplicated;
-    // ClaudeProxyJs lives in the SAME package (io.github.intisy.ai.js) so it can reference
-    // SimpleJsonCodec unqualified, exactly like CoreProxyJs/ClaudeProviderJs do.
-    implementation project(":teavm")
+    githubImplementation "intisy-ai:core-proxy:1.0.0:proxy-contracts"
+    githubImplementation "intisy-ai:api:1.0.1:contract"
+    // :js-base's TeaVM service implementations (SimpleJsonCodec), reused rather than duplicated;
+    // ClaudeProxyJs lives in the SAME package (io.github.intisy.ai.js) so it references them
+    // unqualified, exactly like CoreProxyJs and every provider's own export surface do.
+    githubImplementation "intisy-ai:api:1.0.1:seam"
+    githubImplementation "intisy-ai:api:1.0.1:js-base"
     teavm teavm.libs.jsoApis
 }
 
@@ -31,6 +33,13 @@ java {
 }
 
 tasks.named("compileJava") {
+    options.release = 17
+}
+
+// Same JVM-version attribute matching problem as compileJava, now that the root block also
+// pins compileTestJava to release 8: this module's test classpath depends on project :teavm,
+// which requires 17.
+tasks.named("compileTestJava") {
     options.release = 17
 }
 

@@ -1,9 +1,9 @@
-export * from "../core-proxy/dist/index.js";
+export * from "@intisy-ai/core-proxy";
 export { anthropicProfile } from "./profiles/anthropic.js";
 export { serveDirect } from "./serve-direct.js";
 
 import { anthropicProfile } from "./profiles/anthropic.js";
-import type { RoutingProfile } from "../core-proxy/dist/index.js";
+import type { RoutingProfile } from "@intisy-ai/core-proxy";
 
 export const proxyDef: { app: "claude"; label: string; setup: string; profile: () => RoutingProfile } = {
   app: "claude",

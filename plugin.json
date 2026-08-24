@@ -1,0 +1,14 @@
+{
+  "$schema": "https://intisy-ai.github.io/api/schema/plugin.schema.json",
+  "id": "claude-code-proxy",
+  "api": 1,
+  "entry": "dist/front-door-plugin.js",
+  "displayName": "Claude Code proxy",
+  "capabilities": ["front-door"],
+  "repo": {
+    "role": "Anthropic and Claude Code proxy layer",
+    "category": "app-proxy",
+    "domains": ["claude", "anthropic"],
+    "tech": "typescript"
+  }
+}

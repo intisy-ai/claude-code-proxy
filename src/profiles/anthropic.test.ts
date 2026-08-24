@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { anthropicProfile } from "./anthropic.js";
-import { isValidProfile } from "../../core-proxy/dist/index.js";
+import { isValidProfile } from "@intisy-ai/core-proxy";
 
 it("anthropicProfile: passes isValidProfile", () => {
   expect(isValidProfile(anthropicProfile())).toBe(true);
