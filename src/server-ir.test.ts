@@ -7,10 +7,10 @@ import { afterEach, beforeEach, expect, it } from "vitest";
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { createProxyServer } from "../core-proxy/dist/index.js";
+import { createProxyServer } from "@intisy-ai/core-proxy";
 import { anthropicProfile } from "./profiles/anthropic.js";
-import { anthropicTranslator } from "../anthropic-translator/dist/index.js";
-import type { IrRequest, IrResponse } from "../core-ir/dist/index.js";
+import { anthropicTranslator } from "@intisy-ai/anthropic-translator";
+import type { IrRequest, IrResponse } from "@intisy-ai/core-ir";
 
 let dir: string, srv: any;
 beforeEach(() => {

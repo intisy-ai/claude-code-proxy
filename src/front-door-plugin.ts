@@ -1,4 +1,4 @@
-import { frontDoor } from "../core-proxy/dist/index.js";
+import { frontDoor } from "@intisy-ai/core-proxy";
 import { anthropicProfile } from "./profiles/anthropic.js";
 
 /**

@@ -10,9 +10,9 @@
 // process involved), and profileJson exports that same data here via the TeaVM bridge instead of
 // this file hand-copying a second literal.
 
-import type { RateLimitInfo, RoutingProfile } from "../../core-proxy/dist/index.js";
+import type { RateLimitInfo, RoutingProfile } from "@intisy-ai/core-proxy";
 import { synthJson, profileJson } from "../generated/anthropic-rate-limit.teavm.js";
-import { anthropicTranslator } from "../../anthropic-translator/dist/index.js";
+import { anthropicTranslator } from "@intisy-ai/anthropic-translator";
 
 type AnthropicProfileData = {
   configFile: string;
