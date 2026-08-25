@@ -4,26 +4,21 @@ The Claude/Anthropic proxy layer on top of the generic `core-proxy` engine.
 It provides `anthropicProfile` (the config filename, tier order/fallback,
 tier regex, env-var prefix, default context/output limits, and the native
 Anthropic-shaped 429 response that the engine needs) to route requests for
-Claude Code. It is consumed by `claude-code-loader` as a git submodule and
-installed/run by the dashboard sidecar.
+Claude Code. It is consumed by `claude-code-loader` as a published npm
+dependency and installed/run by the dashboard sidecar.
 
-This is a **library repo consumed as a git submodule and compiled from
-source** (the same treatment as `core` / `core-auth` / `core-loader` /
-`core-proxy`). A first version exists on npm as `@intisy-ai/claude-code-proxy`,
-but this repo's release workflow ships only the JVM ProxyPlugin jar, so that
-package is not yet part of the release path.
+This is a **library repo consumed as a published npm package**, the same
+treatment as `core` / `core-auth` / `core-loader` / `core-proxy`. Its release
+workflow ships `@intisy-ai/claude-code-proxy` alongside the JVM ProxyPlugin jar.
 
 This project carries **no generic engine code**; the routing engine
 (`:34567` daemon, tier→provider chains, rate-limit fallback, model rewrite,
-the node↔web request adapter) lives entirely in `core-proxy`, nested here as
-a submodule. `claude-code-proxy` only supplies the Claude-specific profile
+the node↔web request adapter) lives entirely in `core-proxy`, taken here as an
+npm dependency. `claude-code-proxy` only supplies the Claude-specific profile
 that parameterizes that engine.
 
 ## Structure
 
-- `core-proxy/`: the generic routing engine, nested as a git submodule
-  (compiled separately into `core-proxy/dist`, excluded from this project's
-  own `tsconfig.json`).
 - `src/profiles/anthropic.ts`: `anthropicProfile()`, the Anthropic
   `RoutingProfile` (config file, tier order/fallback, tier regex, env
   prefix, default context/output, `nativeRateLimit`).
