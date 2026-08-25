@@ -1,16 +1,12 @@
-# claude-code-proxy
-
 The Claude/Anthropic proxy layer on top of the generic `core-proxy` engine.
 It provides `anthropicProfile` (the config filename, tier order/fallback,
 tier regex, env-var prefix, default context/output limits, and the native
 Anthropic-shaped 429 response that the engine needs) to route requests for
 Claude Code. It is consumed by `claude-code-loader` as a published npm
 dependency and installed/run by the dashboard sidecar.
-
 This is a **library repo consumed as a published npm package**, the same
 treatment as `core` / `core-auth` / `core-loader` / `core-proxy`. Its release
 workflow ships `@intisy-ai/claude-code-proxy` alongside the JVM ProxyPlugin jar.
-
 This project carries **no generic engine code**; the routing engine
 (`:34567` daemon, tier→provider chains, rate-limit fallback, model rewrite,
 the node↔web request adapter) lives entirely in `core-proxy`, taken here as an
@@ -44,7 +40,3 @@ await server.listen();
 `npm run build && npx vitest run` builds the nested `core-proxy` engine
 first, then this project's own `src`, then runs the moved `anthropicProfile`
 tests plus a barrel smoke test asserting the re-exported surface.
-
-## License
-
-MIT
