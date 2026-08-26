@@ -5,8 +5,8 @@ dependencies {
     githubTestImplementation "intisy-ai:core-proxy:2.0.2:proxy-contracts"
     // :proxy-contracts keeps api compileOnly, which does not propagate, so the seam types this
     // plugin names in its own signatures are declared again here.
-    githubCompileOnly "intisy-ai:api:1.3.0:contract"
-    githubTestImplementation "intisy-ai:api:1.3.0:contract"
+    githubCompileOnly "intisy-ai:api:1.4.0:contract"
+    githubTestImplementation "intisy-ai:api:1.4.0:contract"
 }
 
 // Version-less jar name so publishGithub's artifacts{} can reference it by a stable path.
