@@ -28,10 +28,11 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "build": "npm run build:teavm && npx tsc && node build.mjs",
+    "build": "npm run emit:teavm && npm run build:teavm && npx tsc && node build.mjs",
     "build:teavm": "node node_modules/@intisy-ai/api/scripts/teavm-build.mjs --java-dir . --module :claude-code-proxy-teavm --out src/generated/anthropic-rate-limit.teavm.js",
-    "test": "vitest run",
-    "prepublishOnly": "npm run build"
+    "test": "npm run build && vitest run",
+    "prepublishOnly": "npm run build",
+    "emit:teavm": "node node_modules/@intisy-ai/api/scripts/emit-dts.mjs --java-dir . --module :claude-code-proxy-teavm --out src/generated"
   },
   "dependencies": {
     "@intisy-ai/anthropic-translator": "^1.1.0",
