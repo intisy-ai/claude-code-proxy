@@ -11,13 +11,13 @@ dependencies {
     // (keeping its shipped jar thin) -- that does NOT propagate to us, so :routing is declared
     // again below for the SPI types (RoutingProfile.Synth) ClaudeProxyJs references directly.
     implementation project(":claude-code-proxy-plugin")
-    githubImplementation "intisy-ai:core-proxy:1.0.0:proxy-contracts"
-    githubImplementation "intisy-ai:api:1.0.1:contract"
+    githubImplementation "intisy-ai:core-proxy:2.0.1:proxy-contracts"
+    githubImplementation "intisy-ai:api:1.2.0:contract"
     // :js-base's TeaVM service implementations (SimpleJsonCodec), reused rather than duplicated;
     // ClaudeProxyJs lives in the SAME package (io.github.intisy.ai.js) so it references them
     // unqualified, exactly like CoreProxyJs and every provider's own export surface do.
-    githubImplementation "intisy-ai:api:1.0.1:seam"
-    githubImplementation "intisy-ai:api:1.0.1:js-base"
+    githubImplementation "intisy-ai:api:1.2.0:seam"
+    githubImplementation "intisy-ai:api:1.2.0:js-base"
     teavm teavm.libs.jsoApis
 }
 
