@@ -1,8 +1,8 @@
 dependencies {
     // ProxyPlugin/RoutingProfile/RateLimitInfo come from the host's classpath at runtime (the
     // example-server's ProxyRegistry classloader already has :routing); compileOnly keeps this jar thin.
-    githubCompileOnly "intisy-ai:core-proxy:2.0.2:proxy-contracts"
-    githubTestImplementation "intisy-ai:core-proxy:2.0.2:proxy-contracts"
+    githubCompileOnly "intisy-ai:core-proxy:2.1.0:proxy-contracts"
+    githubTestImplementation "intisy-ai:core-proxy:2.1.0:proxy-contracts"
     // :proxy-contracts keeps api compileOnly, which does not propagate, so the seam types this
     // plugin names in its own signatures are declared again here.
     githubCompileOnly "intisy-ai:api:1.6.0:contract"
