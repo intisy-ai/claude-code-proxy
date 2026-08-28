@@ -1,5 +1,20 @@
-// Hand-written type contract for the TeaVM-transpiled anthropic-rate-limit.teavm.js (generated,
-// gitignored, staged by `node core-proxy/teavm-build.mjs ...` -- see package.json's build script).
-// Export names confirmed by inspecting the generated ES2015 module: `export { ..._synthJson$exported$0 as synthJson, ..._profileJson$exported$0 as profileJson }`.
-export function synthJson(argsJson: string): string;
-export function profileJson(): string;
+// Generated from Java sources. Do not edit.
+
+/**
+ * The claude-code routing profile's data fields, as JSON.
+ *
+ * @remarks
+ * The regex fields arrive as their pattern strings, which a JS caller wraps back into
+ * a RegExp; the profile's function-valued members stay JS-native and are not carried here.
+ *
+ * @returns that data as a JSON object
+ */
+export declare function profileJson(): string;
+/**
+ * Synthesizes the rate-limit response for an upstream outcome, as JSON.
+ *
+ * @param argsJson - the upstream status, its headers, the reset instant and now
+ * @returns the status, headers and body to answer with, as a JSON object
+ */
+export declare function synthJson(argsJson: string): string;
+

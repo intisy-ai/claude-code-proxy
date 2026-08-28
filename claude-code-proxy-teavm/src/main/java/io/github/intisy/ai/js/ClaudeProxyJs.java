@@ -30,6 +30,8 @@ public final class ClaudeProxyJs {
      * tierOrder, tierFallback, tierRegex, nativeModelPattern, envPrefix, defaultContext,
      * defaultOutput}}, with {@code tierRegex}/{@code nativeModelPattern} as their {@code .pattern()}
      * strings (a JS caller wraps them back into a {@code RegExp}).
+     *
+     * @return that data as a JSON object
      */
     @JSExport
     public static String profileJson() {
@@ -51,8 +53,11 @@ public final class ClaudeProxyJs {
     }
 
     /**
-     * args JSON: {"upstreamStatus":int,"upstreamHeaders":{k:v,...},"resetMs":long,"now":long}.
-     * Returns {"status":int,"headers":{k:v,...},"body":string}.
+     * The synthesized rate-limit response, as JSON.
+     *
+     * @param argsJson an object carrying {@code upstreamStatus}, {@code upstreamHeaders},
+     * {@code resetMs} and {@code now}
+     * @return an object carrying {@code status}, {@code headers} and {@code body}
      */
     @JSExport
     public static String synthJson(String argsJson) {

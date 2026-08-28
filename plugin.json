@@ -4,11 +4,25 @@
   "api": 1,
   "entry": "dist/front-door-plugin.js",
   "displayName": "Claude Code proxy",
-  "capabilities": ["front-door"],
+  "capabilities": [
+    "front-door"
+  ],
+  "publish": {
+    "scopedOnly": true,
+    "jarModule": [
+      "claude-code-proxy-plugin"
+    ],
+    "jarPretest": true
+  },
   "repo": {
     "role": "Anthropic and Claude Code proxy layer",
     "category": "app-proxy",
-    "domains": ["claude", "anthropic"],
-    "tech": "typescript"
+    "domains": [
+      "claude",
+      "anthropic"
+    ],
+    "tech": [
+      "typescript"
+    ]
   }
 }

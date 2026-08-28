@@ -67,6 +67,16 @@ const ANTHROPIC_PROFILE: RoutingProfile = {
   translator: anthropicTranslator,
 };
 
+/**
+ * This app's routing profile: its tiers, its model patterns, and its rate-limit shape.
+ *
+ * @remarks
+ * The data half is single-sourced from the Java plugin through the emitted TeaVM surface, so a tier
+ * or a regex is declared once and never hand-copied here.
+ *
+ * @param overrides what a caller wants to differ, for a test or a variant deployment.
+ * @returns the profile the engine routes with.
+ */
 export function anthropicProfile(overrides?: Partial<RoutingProfile>): RoutingProfile {
   return { ...ANTHROPIC_PROFILE, ...overrides };
 }
