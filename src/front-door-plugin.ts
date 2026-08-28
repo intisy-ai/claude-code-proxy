@@ -17,4 +17,5 @@ const plugin = {
   deactivate() {},
 };
 
+/** The capability this repo contributes, in the shape an in-process host duck-types. */
 export default plugin;
