@@ -19,6 +19,8 @@ public interface ClaudeProxySurface {
      *
      * @implNote The regex fields arrive as their pattern strings, which a JS caller wraps back into
      * a RegExp; the profile's function-valued members stay JS-native and are not carried here.
+     *
+     * @return that data as a JSON object
      */
     String profileJson();
 
@@ -26,6 +28,7 @@ public interface ClaudeProxySurface {
      * Synthesizes the rate-limit response for an upstream outcome, as JSON.
      *
      * @param argsJson the upstream status, its headers, the reset instant and now
+     * @return the status, headers and body to answer with, as a JSON object
      */
     String synthJson(String argsJson);
 }

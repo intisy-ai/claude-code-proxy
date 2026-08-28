@@ -20,7 +20,13 @@ public final class AnthropicRateLimit {
     private AnthropicRateLimit() {
     }
 
-    /** Unwraps {@link RateLimitInfo} (whose {@code upstream} may be null) into {@link #synthCore}. */
+    /**
+     * Unwraps {@link RateLimitInfo} (whose {@code upstream} may be null) into {@link #synthCore}.
+     *
+     * @param info what the router observed, which may carry no upstream response at all
+     * @param now the current instant in epoch milliseconds, taken as a parameter so this is testable
+     * @return the response to answer the caller with
+     */
     public static RoutingProfile.Synth synth(RateLimitInfo info, long now) {
         HttpResponse upstream = info != null ? info.upstream : null;
         int upstreamStatus = upstream != null ? upstream.status : 0;
@@ -30,8 +36,16 @@ public final class AnthropicRateLimit {
     }
 
     /**
-     * Pure logic: a non-429 upstream status or an empty/null header map is treated as "no
-     * upstream" ({@code upstream.status == 429 && upstream.headers != null} must both hold).
+     * Builds the response, from values rather than from an object, so TeaVM can transpile it.
+     *
+     * @apiNote A non-429 status or an empty header map is treated as no upstream at all: both must
+     * hold before an upstream's own headers are copied forward.
+     *
+     * @param upstreamStatus what upstream answered, or zero when it did not answer
+     * @param upstreamHeaders the headers it answered with, whose hop-by-hop entries are dropped
+     * @param resetMs when the limit lifts, in epoch milliseconds, or zero when that is unknown
+     * @param now the current instant in epoch milliseconds
+     * @return a 429 carrying a reconciled reset, a recomputed retry-after and a rate-limit body
      */
     public static RoutingProfile.Synth synthCore(int upstreamStatus, Map<String, String> upstreamHeaders,
                                                   long resetMs, long now) {
