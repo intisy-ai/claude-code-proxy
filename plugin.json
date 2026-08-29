@@ -1,5 +1,5 @@
 {
-  "$schema": "https://intisy-ai.github.io/api/schema/plugin.schema.json",
+  "$schema": "./node_modules/@intisy/bayonet/schema/plugin.schema.json",
   "id": "claude-code-proxy",
   "api": 1,
   "entry": "dist/front-door-plugin.js",
