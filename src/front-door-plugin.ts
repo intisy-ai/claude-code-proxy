@@ -1,5 +1,5 @@
 import { frontDoor, FRONT_DOOR } from "@intisy-ai/basekit/proxy";
-import type { Plugin, PluginContext } from "@intisy-ai/api";
+import type { Plugin, PluginContext } from "@intisy/bayonet";
 import { anthropicProfile } from "./profiles/anthropic.js";
 
 /** What an in-process host loads: this app's wire format, as the `front-door` capability. */

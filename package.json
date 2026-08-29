@@ -29,10 +29,10 @@
   },
   "scripts": {
     "build": "npm run emit:teavm && npm run build:teavm && npx tsc && node build.mjs && npx esbuild src/front-door-plugin.ts --bundle --platform=node --format=esm --external:@intisy-ai/basekit/proxy --external:@intisy-ai/basekit/ir --external:@intisy-ai/anthropic-translator --outfile=dist/front-door-plugin.js",
-    "build:teavm": "node node_modules/@intisy-ai/api/scripts/teavm-build.mjs --java-dir . --module :claude-code-proxy-teavm --out src/generated/anthropic-rate-limit.teavm.js",
+    "build:teavm": "node node_modules/@intisy/bayonet/scripts/teavm-build.mjs --java-dir . --module :claude-code-proxy-teavm --out src/generated/anthropic-rate-limit.teavm.js",
     "test": "npm run build && vitest run",
     "prepublishOnly": "npm run build",
-    "emit:teavm": "node node_modules/@intisy-ai/api/scripts/emit-dts.mjs --java-dir . --module :claude-code-proxy-teavm --out src/generated",
+    "emit:teavm": "node node_modules/@intisy/bayonet/scripts/emit-dts.mjs --java-dir . --module :claude-code-proxy-teavm --out src/generated",
     "docs": "typedoc"
   },
   "dependencies": {
@@ -40,7 +40,7 @@
     "@intisy-ai/basekit": "^4.0.0"
   },
   "devDependencies": {
-    "@intisy-ai/api": "^1.6.0",
+    "@intisy/bayonet": "^1.7.0",
     "@types/node": "^22.0.0",
     "esbuild": "^0.21.5",
     "typedoc": "^0.28.20",
