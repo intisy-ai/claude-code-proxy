@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/claude-code-proxy)](https://www.npmjs.com/package/claude-code-proxy)
 [![npm downloads](https://img.shields.io/npm/dm/claude-code-proxy)](https://www.npmjs.com/package/claude-code-proxy)
 
-The Claude/Anthropic proxy layer (anthropicProfile) on top of the generic core-proxy engine
+The Claude/Anthropic proxy layer (anthropicProfile) on top of the generic basekit proxy engine
 
 The Claude/Anthropic proxy layer on top of the generic `core-proxy` engine.
 It provides `anthropicProfile` (the config filename, tier order/fallback,
