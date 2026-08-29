@@ -16,6 +16,6 @@ describe("the deployed plugin entry", () => {
   });
 
   it("still imports its libraries bare, so the home's shared store resolves them", () => {
-    expect(entry).toContain('"@intisy-ai/core-proxy"');
+    expect(entry).toContain('"@intisy-ai/basekit/proxy"');
   });
 });

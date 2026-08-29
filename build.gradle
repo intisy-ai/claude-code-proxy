@@ -1,7 +1,7 @@
 // claude-code-proxy's Java module -- self-contained Gradle build living alongside claude-code-proxy's
 // TS (../src, ../package.json), mirroring claude-code-auth's java/build.gradle. Simpler than a
 // provider module: :claude-code-proxy-plugin depends on :routing ONLY (no ai-java jvm backend, no
-// core-auth, no composite includeBuild) -- it only builds a RoutingProfile + implements ProxyPlugin.
+// basekit auth, no composite includeBuild) -- it only builds a RoutingProfile + implements ProxyPlugin.
 plugins {
     id "io.github.intisy.github-gradle" version "1.10.3" apply false
 }
@@ -75,7 +75,7 @@ subprojects {
     }
 
     // Only :claude-code-proxy-plugin is a published artifact (:routing/:teavm are aliased from
-    // core-proxy, :claude-code-proxy-teavm is a TeaVM js-export module) -- scope publishGithub so
+    // basekit, :claude-code-proxy-teavm is a TeaVM js-export module) -- scope publishGithub so
     // an aggregate `publish` doesn't fail on the non-library modules.
     tasks.matching { it.name == "publishGithub" }.configureEach {
         onlyIf { project.path == ":claude-code-proxy-plugin" }

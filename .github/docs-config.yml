@@ -1,5 +1,5 @@
 kind: generic
-description: The Claude/Anthropic proxy layer (anthropicProfile) on top of the generic core-proxy engine
+description: The Claude/Anthropic proxy layer (anthropicProfile) on top of the generic basekit proxy engine
 badges:
   - npm-version
   - npm-downloads

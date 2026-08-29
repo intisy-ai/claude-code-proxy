@@ -2,15 +2,15 @@
 // stand-in): anthropicProfile() carries anthropic-translator's real AnthropicTranslator, so an
 // inbound Anthropic-wire request decodes to IR, routes on IrRequest.model, reaches a
 // handleIr-capable handler, and the IrResponse is encoded back to Anthropic wire by
-// createProxyServer (core-proxy).
+// createProxyServer (basekit/proxy).
 import { afterEach, beforeEach, expect, it } from "vitest";
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { createProxyServer } from "@intisy-ai/core-proxy";
+import { createProxyServer } from "@intisy-ai/basekit/proxy";
 import { anthropicProfile } from "./profiles/anthropic.js";
 import { anthropicTranslator } from "@intisy-ai/anthropic-translator";
-import type { IrRequest, IrResponse } from "@intisy-ai/core-ir";
+import type { IrRequest, IrResponse } from "@intisy-ai/basekit/ir";
 
 let dir: string, srv: any;
 beforeEach(() => {
