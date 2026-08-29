@@ -1,11 +1,13 @@
 import { describe, expect, it, vi } from "vitest";
 import plugin from "./front-door-plugin.js";
 
+// Mirrors the engine's own boundary, which reads the id off a typed key and accepts a bare id too.
 function contextSpy() {
   const provided: Record<string, unknown> = {};
+  const idOf = (key: unknown): string => (typeof key === "string" ? key : String((key as { id: string }).id));
   return {
     provided,
-    context: { provide: vi.fn((id: string, value: unknown) => { provided[id] = value; }) },
+    context: { provide: vi.fn((key: unknown, value: unknown) => { provided[idOf(key)] = value; }) },
   };
 }
 
