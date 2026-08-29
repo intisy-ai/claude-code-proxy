@@ -3,7 +3,7 @@
 import { expect, it } from "vitest";
 import { serveDirect } from "./serve-direct.js";
 import { anthropicTranslator } from "@intisy-ai/anthropic-translator";
-import type { IrRequest, IrResponse } from "@intisy-ai/core-ir";
+import type { IrRequest, IrResponse } from "@intisy-ai/basekit/ir";
 
 const wire = JSON.stringify({ model: "claude-opus-4-1", max_tokens: 16, messages: [{ role: "user", content: "ping" }] });
 const ctx = { configDir: "/tmp", log: () => {}, model: "m-ok", provider: "p" } as any;

@@ -4,18 +4,9 @@ plugins {
 
 rootProject.name = "claude-code-proxy-java"
 
-// The routing engine and its TeaVM js export, from this repo's nested core-proxy submodule. Every
-// alias reaching api or core-ir goes through core-proxy's OWN clones so this build carries exactly
-// one :ir and one api: two projectDirs claiming the same project path is a Gradle collision.
-
-
-// :proxy-contracts - the routing vocabulary this plugin implements, and the front-door key
-// core-proxy mints. Apart from :routing so a plugin implementing it does not link the engine.
-
-// :ir - core-ir's canonical IR types and the IrHandler seam the engine routes over.
-
-// :annotations, :processor, :contract, :seam and :js-base come from api: :ir exports api's seam
-// types in HandlerCtx's public fields, so every module here must resolve api at one coordinate.
+// The routing vocabulary (:proxy-contracts), the IR types (:ir) and api's seam modules resolve as
+// published jars through github-gradle, so only this repo's own two projects are included. Every
+// module must name api at ONE coordinate: :ir exports api's seam types in HandlerCtx's public fields.
 
 // :claude-code-proxy-plugin, the publishable *-proxy*.jar (ClaudeCodeProxyPlugin + AnthropicRateLimit).
 include ":claude-code-proxy-plugin"

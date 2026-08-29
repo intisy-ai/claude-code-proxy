@@ -1,9 +1,9 @@
-export * from "@intisy-ai/core-proxy";
+export * from "@intisy-ai/basekit/proxy";
 export { anthropicProfile } from "./profiles/anthropic.js";
 export { serveDirect } from "./serve-direct.js";
 
 import { anthropicProfile } from "./profiles/anthropic.js";
-import type { RoutingProfile } from "@intisy-ai/core-proxy";
+import type { RoutingProfile } from "@intisy-ai/basekit/proxy";
 
 /** What a host needs to offer this app as a proxy target: who it is, and how to point it here. */
 export const proxyDef: {

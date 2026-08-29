@@ -29,11 +29,11 @@
   "name": "@intisy-ai/claude-code-proxy",
   "sourceLinkTemplate": "https://github.com/intisy-ai/claude-code-proxy/blob/{gitRevision}/{path}#L{line}",
   "externalSymbolLinkMappings": {
-    "@intisy-ai/core-ir": {
-      "*": "https://github.com/intisy-ai/core-ir"
+    "@intisy-ai/basekit/ir": {
+      "*": "https://github.com/intisy-ai/basekit"
     },
-    "@intisy-ai/core-proxy": {
-      "*": "https://github.com/intisy-ai/core-proxy"
+    "@intisy-ai/basekit/proxy": {
+      "*": "https://github.com/intisy-ai/basekit"
     }
   }
 }
