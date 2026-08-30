@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@intisy-ai/anthropic-translator": "^1.1.0",
-    "@intisy-ai/basekit": "^4.0.0"
+    "@intisy-ai/basekit": "^5.0.0"
   },
   "devDependencies": {
     "@intisy/bayonet": "^1.8.0",
